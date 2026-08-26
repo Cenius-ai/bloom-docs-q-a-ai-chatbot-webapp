@@ -1,0 +1,25 @@
+<div class="app-shell" [class.sidebar-closed]="!sidebarOpen()">
+  <aside class="sidebar-pane" [class.open]="sidebarOpen()">
+    <app-sidebar (navigate)="closeSidebar()"></app-sidebar>
+  </aside>
+
+  @if (isMobile() && sidebarOpen()) {
+  <div class="sidebar-overlay" (click)="closeSidebar()" aria-hidden="true"></div>
+  }
+
+  <main class="main-pane">
+    @if (isMobile()) {
+    <button
+      class="menu-toggle"
+      (click)="toggleSidebar()"
+      [attr.aria-label]="sidebarOpen() ? 'Close sidebar' : 'Open sidebar'"
+      [attr.aria-expanded]="sidebarOpen()"
+    >
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+        <path d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+      </svg>
+    </button>
+    }
+    <router-outlet></router-outlet>
+  </main>
+</div>

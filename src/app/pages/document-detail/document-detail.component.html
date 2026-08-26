@@ -1,0 +1,40 @@
+<div class="doc-detail-page">
+  @if (document(); as doc) {
+  <header class="doc-header">
+    <a routerLink="/documents" class="back-link" aria-label="Back to documents">
+      <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
+        <path d="M11 4L6 9l5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <span>Documents</span>
+    </a>
+    <span class="doc-badge">{{ doc.category }}</span>
+    <h1>{{ doc.title }}</h1>
+    <p class="doc-excerpt-lead">{{ doc.excerpt }}</p>
+  </header>
+
+  <article class="doc-body">
+    @for (section of parseContent(doc.content); track $index) {
+    @switch (section.type) {
+    @case ('heading2') {
+    <h2>{{ section.content }}</h2>
+    }
+    @case ('heading3') {
+    <h3>{{ section.content }}</h3>
+    }
+    @case ('code') {
+    <pre class="code-block"><code>{{ section.content }}</code></pre>
+    }
+    @case ('text') {
+    <p>{{ section.content }}</p>
+    }
+    }
+    }
+  </article>
+  } @else {
+  <div class="empty-state">
+    <h2>Document not found</h2>
+    <p>This document may not exist or may have been removed.</p>
+    <a routerLink="/documents" class="btn-primary">Browse documents</a>
+  </div>
+  }
+</div>

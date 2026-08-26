@@ -1,0 +1,51 @@
+<div class="message-row" [class.user]="message.role === 'user'" [class.assistant]="message.role === 'assistant'">
+  <div class="message-avatar" aria-hidden="true">
+    @if (message.role === 'user') {
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="5" r="3" stroke="currentColor" stroke-width="1.3"/><path d="M2 14c0-3.3 2.7-6 6-6s6 2.7 6 6" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+    } @else {
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6" fill="var(--accent)"/><path d="M5 8c0-1.7 1.3-3 3-3s3 1.3 3 3-1.3 3-3 3" fill="none" stroke="var(--accent-fg)" stroke-width="1.5" stroke-linecap="round"/></svg>
+    }
+  </div>
+
+  <div class="message-body">
+    <div class="message-content">
+      @for (para of formatContent(message.content); track $index) {
+      <p>{{ para }}</p>
+      }
+    </div>
+
+    @if (message.sources && message.sources.length > 0) {
+    <div class="message-sources">
+      <div class="sources-label">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M2 3h7l2 2v7a1 1 0 01-1 1H2a1 1 0 01-1-1V4a1 1 0 011-1z" stroke="currentColor" stroke-width="1.2"/><path d="M9 3v2h2" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span>Sources</span>
+      </div>
+      @for (source of message.sources; track source.id) {
+      <div class="source-card">
+        <span class="source-title">{{ source.title }}</span>
+        <p class="source-excerpt">{{ source.excerpt }}</p>
+      </div>
+      }
+    </div>
+    }
+
+    <div class="message-meta">
+      <time [attr.datetime]="message.timestamp">{{ message.timestamp | date:'shortTime' }}</time>
+      @if (message.role === 'assistant') {
+      <button
+        class="btn-copy"
+        (click)="copyContent()"
+        [attr.aria-label]="copied ? 'Copied' : 'Copy message to clipboard'"
+      >
+        @if (copied) {
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M3 7l3 3 5-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span>Copied</span>
+        } @else {
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><rect x="5" y="5" width="8" height="8" rx="1" stroke="currentColor" stroke-width="1.2"/><path d="M3 9H2a1 1 0 01-1-1V2a1 1 0 011-1h6a1 1 0 011 1v1" stroke="currentColor" stroke-width="1.2"/></svg>
+        <span>Copy</span>
+        }
+      </button>
+      }
+    </div>
+  </div>
+</div>

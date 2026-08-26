@@ -1,0 +1,83 @@
+<div class="settings-page">
+  <header class="page-header">
+    <h1>Settings</h1>
+    <p class="page-subtitle">Customize your Bloom experience</p>
+  </header>
+
+  <section class="settings-section">
+    <h2>Appearance</h2>
+    <p class="section-desc">Choose your preferred theme. Changes are saved automatically.</p>
+
+    <div class="theme-options">
+      <button
+        class="theme-option"
+        [class.selected]="mode() === 'dark'"
+        (click)="setTheme('dark')"
+        aria-label="Dark theme"
+        [attr.aria-pressed]="mode() === 'dark'"
+      >
+        <div class="theme-preview dark-preview">
+          <div class="preview-sidebar"></div>
+          <div class="preview-main">
+            <div class="preview-bar"></div>
+            <div class="preview-bubble"></div>
+            <div class="preview-bubble short"></div>
+          </div>
+        </div>
+        <span>Dark</span>
+      </button>
+
+      <button
+        class="theme-option"
+        [class.selected]="mode() === 'light'"
+        (click)="setTheme('light')"
+        aria-label="Light theme"
+        [attr.aria-pressed]="mode() === 'light'"
+      >
+        <div class="theme-preview light-preview">
+          <div class="preview-sidebar"></div>
+          <div class="preview-main">
+            <div class="preview-bar"></div>
+            <div class="preview-bubble"></div>
+            <div class="preview-bubble short"></div>
+          </div>
+        </div>
+        <span>Light</span>
+      </button>
+    </div>
+  </section>
+
+  <section class="settings-section">
+    <h2>About Bloom</h2>
+    <div class="about-card">
+      <div class="about-row">
+        <span class="about-label">Version</span>
+        <span class="about-value">1.0.0</span>
+      </div>
+      <div class="about-row">
+        <span class="about-label">Documents indexed</span>
+        <span class="about-value">10</span>
+      </div>
+      <div class="about-row">
+        <span class="about-label">AI Provider</span>
+        <span class="about-value">Mock (local demo)</span>
+      </div>
+      <p class="about-desc">
+        Bloom is a documentation Q&A assistant that helps you find answers across
+        your knowledge base. This demo uses a local mock AI that searches through
+        pre-loaded documents and generates responses with source citations.
+      </p>
+    </div>
+  </section>
+
+  <section class="settings-section">
+    <h2>Data Management</h2>
+    <p class="section-desc">All your conversations and settings are stored locally in your browser.</p>
+    <button class="btn-danger" (click)="purgeData()">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+        <path d="M3 4h10M6 4V3a1 1 0 011-1h2a1 1 0 011 1v1M5 4v9a1 1 0 001 1h4a1 1 0 001-1V4" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      Reset all data
+    </button>
+  </section>
+</div>
